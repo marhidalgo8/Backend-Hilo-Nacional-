@@ -1,6 +1,7 @@
 package com.HiloNacional.model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "vendedor")
@@ -22,12 +23,11 @@ public class Vendedor {
     private String cuentaBancaria;
 
     @Column(name = "calificacion_promedio", precision = 3, scale = 2)
-    private Double calificacionPromedio;
+    private BigDecimal calificacionPromedio;
 
     @Column(name = "activo")
     private Boolean activo;
 
-    // Getters y Setters
     public Integer getIdUsuario() { return idUsuario; }
     public void setIdUsuario(Integer idUsuario) { this.idUsuario = idUsuario; }
 
@@ -40,8 +40,8 @@ public class Vendedor {
     public String getCuentaBancaria() { return cuentaBancaria; }
     public void setCuentaBancaria(String cuentaBancaria) { this.cuentaBancaria = cuentaBancaria; }
 
-    public Double getCalificacionPromedio() { return calificacionPromedio; }
-    public void setCalificacionPromedio(Double calificacionPromedio) { this.calificacionPromedio = calificacionPromedio; }
+    public BigDecimal getCalificacionPromedio() { return calificacionPromedio; }
+    public void setCalificacionPromedio(BigDecimal calificacionPromedio) { this.calificacionPromedio = calificacionPromedio; }
 
     public Boolean getActivo() { return activo; }
     public void setActivo(Boolean activo) { this.activo = activo; }
