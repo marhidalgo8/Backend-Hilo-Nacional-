@@ -25,7 +25,7 @@ public class VendedorController {
     }
 
     @GetMapping(path="{id}")
-    public Optional<Vendedor> getVendedor(@PathVariable("id") Integer id) {
+    public Optional<Vendedor> getVendedor(@PathVariable("id") Long id) {
         return vendedorService.buscarId(id);
     }
 
@@ -35,13 +35,13 @@ public class VendedorController {
     }
 
     @PutMapping(path="{id}")
-    public Vendedor updateVendedor(@PathVariable("id") Integer id, @RequestBody Vendedor vendedor) {
+    public Vendedor updateVendedor(@PathVariable("id") Long id, @RequestBody Vendedor vendedor) {
         vendedor.setIdUsuario(id);
         return vendedorService.guardar(vendedor);
     }
 
     @DeleteMapping(path="{id}")
-    public void deleteVendedor(@PathVariable("id") Integer id) {
+    public void deleteVendedor(@PathVariable("id") Long id) {
         vendedorService.eliminar(id);
     }
 }

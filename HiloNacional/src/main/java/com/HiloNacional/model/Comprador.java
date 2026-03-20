@@ -8,7 +8,7 @@ public class Comprador {
 
     @Id
     @Column(name = "id_usuario")
-    private Integer idUsuario;
+    private Long idUsuario;
 
     @OneToOne
     @MapsId
@@ -22,15 +22,15 @@ public class Comprador {
     private String cp;
 
     @Column(name = "puntos_fidelidad")
-    private Integer puntosFidelidad;
+    private Long puntosFidelidad;
 
     // Getters y Setters
-    public Integer getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdUsuario(Long id) {
+        this.idUsuario = id;
     }
 
     public Usuario getUsuario() {
@@ -57,11 +57,11 @@ public class Comprador {
         this.cp = cp;
     }
 
-    public Integer getPuntosFidelidad() {
+    public Long getPuntosFidelidad() {
         return puntosFidelidad;
     }
 
-    public void setPuntosFidelidad(Integer puntosFidelidad) {
+    public void setPuntosFidelidad(Long puntosFidelidad) {
         this.puntosFidelidad = puntosFidelidad;
     }
 }

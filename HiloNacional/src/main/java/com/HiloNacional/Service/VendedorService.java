@@ -22,7 +22,7 @@ public class VendedorService {
         return vendedorRepository.findAll();
     }
 
-    public Optional<Vendedor> buscarId(Integer id) {
+    public Optional<Vendedor> buscarId(Long id) {
         return vendedorRepository.findById(id);
     }
 
@@ -30,7 +30,7 @@ public class VendedorService {
         return vendedorRepository.save(vendedor);
     }
 
-    public void eliminar(Integer id) {
+    public void eliminar(Long id) {
         vendedorRepository.deleteById(id);
     }
 }
