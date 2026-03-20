@@ -1,7 +1,5 @@
 package com.HiloNacional.Controller;
 
-
-
 import com.HiloNacional.model.DetallePedido;
 import com.HiloNacional.Service.DetallePedidoService;
 
@@ -28,8 +26,8 @@ public class DetallePedidoController {
     }
 
     @GetMapping(path="{id}")
-    public Optional<DetallePedido> getDetallePedido(@PathVariable("id") Integer id) {
-        return detallePedidoService.buscarId(id);
+    public Optional<DetallePedido> getDetallePedido(@PathVariable("id") Long id) {  // Integer → Long
+        return detallePedidoService.buscarId(id);  // __buscarId__ → buscarId
     }
 
     @PostMapping
@@ -38,13 +36,13 @@ public class DetallePedidoController {
     }
 
     @PutMapping(path="{id}")
-    public DetallePedido updateDetallePedido(@PathVariable("id") Integer id, @RequestBody DetallePedido detallePedido) {
-        detallePedido.setIdDetalle(id);
+    public DetallePedido updateDetallePedido(@PathVariable("id") Long id, @RequestBody DetallePedido detallePedido) {  // Integer → Long
+        detallePedido.setIdDetalle(id);  // __setIdDetalle__ → setIdDetalle
         return detallePedidoService.guardar(detallePedido);
     }
 
     @DeleteMapping(path="{id}")
-    public void deleteDetallePedido(@PathVariable("id") Integer id) {
-        detallePedidoService.eliminar(id);
+    public void deleteDetallePedido(@PathVariable("id") Long id) {  // Integer → Long
+        detallePedidoService.eliminar(id);  // __eliminar__ → eliminar
     }
 }

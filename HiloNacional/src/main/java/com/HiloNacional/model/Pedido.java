@@ -15,7 +15,7 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pedido")
-    private Integer idPedido;
+    private Long idPedido;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario_comprador", nullable = false)
@@ -34,8 +34,8 @@ public class Pedido {
     @Column(name = "direccion_envio", columnDefinition = "TEXT")
     private String direccionEnvio;
 
-    public Integer getIdPedido() { return idPedido; }
-    public void setIdPedido(Integer idPedido) { this.idPedido = idPedido; }
+    public Long getIdPedido() { return idPedido; }
+    public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
 
     public Usuario getIdUsuarioComprador() { return idUsuarioComprador; }
     public void setIdUsuarioComprador(Usuario idUsuarioComprador) { this.idUsuarioComprador = idUsuarioComprador; }

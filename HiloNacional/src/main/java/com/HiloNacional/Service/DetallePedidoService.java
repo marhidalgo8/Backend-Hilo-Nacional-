@@ -1,6 +1,5 @@
 package com.HiloNacional.Service;
 
-
 import com.HiloNacional.model.DetallePedido;
 import com.HiloNacional.Repository.DetallePedidoRepository;
 
@@ -24,7 +23,7 @@ public class DetallePedidoService {
         return detallePedidoRepository.findAll();
     }
 
-    public Optional<DetallePedido> buscarId(Integer id) {
+    public Optional<DetallePedido> buscarId(Long id) {  // Integer → Long
         return detallePedidoRepository.findById(id);
     }
 
@@ -32,8 +31,7 @@ public class DetallePedidoService {
         return detallePedidoRepository.save(detallePedido);
     }
 
-    public void eliminar(Integer id) {
+    public void eliminar(Long id) {  // Integer → Long
         detallePedidoRepository.deleteById(id);
     }
 }
-

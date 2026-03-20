@@ -3,6 +3,7 @@ package com.HiloNacional.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -10,13 +11,13 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private Integer idUsuario;
+    private Long idUsuario;
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 255)
-    private String password;
+    @Column(name = "clave", nullable = false, length = 255)
+    private String clave;
 
     @Column(name = "nombre", length = 100)
     private String nombre;
@@ -27,14 +28,14 @@ public class Usuario {
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
 
-    public Integer getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(Integer idUsuario) { this.idUsuario = idUsuario; }
+    public Long getIdUsuario() { return idUsuario; }
+    public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getClave() { return clave; }
+    public void setClave(String clave) { this.clave = clave; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
@@ -44,4 +45,14 @@ public class Usuario {
 
     public LocalDateTime getFechaRegistro() { return fechaRegistro; }
     public void setFechaRegistro(LocalDateTime fechaRegistro) { this.fechaRegistro = fechaRegistro; }
+    
+    
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", email=" + email + ", clave=" + clave + ", nombre=" + nombre
+				+ ", telefono=" + telefono + ", fechaRegistro=" + fechaRegistro + "]";
+	}
+    
+    
 }
+

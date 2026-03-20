@@ -15,7 +15,7 @@ public class DetallePedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idDetalle;
+    private Long idDetalle;
 
     @ManyToOne
     @JoinColumn(name = "id_pedido", nullable = false)
@@ -29,8 +29,8 @@ public class DetallePedido {
     private BigDecimal precioUnitario;
     private BigDecimal subtotal;
 
-    public Integer getIdDetalle() { return idDetalle; }
-    public void setIdDetalle(Integer idDetalle) { this.idDetalle = idDetalle; }
+    public Long getIdDetalle() { return idDetalle; }
+    public void setIdDetalle(Long idDetalle) { this.idDetalle = idDetalle; }
 
     public Pedido getPedido() { return pedido; }
     public void setPedido(Pedido pedido) { this.pedido = pedido; }

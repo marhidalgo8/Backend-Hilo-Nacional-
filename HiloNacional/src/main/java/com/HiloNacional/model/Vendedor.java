@@ -9,7 +9,7 @@ public class Vendedor {
 
     @Id
     @Column(name = "id_usuario")
-    private Integer idUsuario;
+    private  Long idUsuario;
 
     @OneToOne
     @MapsId
@@ -28,8 +28,8 @@ public class Vendedor {
     @Column(name = "activo")
     private Boolean activo;
 
-    public Integer getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(Integer idUsuario) { this.idUsuario = idUsuario; }
+    public Long getIdUsuario() { return idUsuario; }
+    public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
 
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
