@@ -8,10 +8,10 @@ import java.util.List;
 
 @Repository
 public interface PedidosRepository extends JpaRepository<Pedido, Long> {
-    List<Pedido> findByIdUsuarioCompradorIdUsuario(Integer compradorId);
+
+    List<Pedido> findByIdUsuarioCompradorIdUsuario(Long compradorId); // ✅ Integer → Long
+
     List<Pedido> findByEstado(EstadoPedido estado);
 
-    default List<Pedido> findByCompradorId(Long compradorId) {
-        return findByIdUsuarioCompradorIdUsuario(compradorId.intValue());
-    }
+
 }
