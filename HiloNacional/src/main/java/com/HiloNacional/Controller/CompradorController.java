@@ -2,11 +2,6 @@ package com.HiloNacional.Controller;
 
 import com.HiloNacional.model.Comprador;
 import com.HiloNacional.Service.CompradorService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/HiloNacional/comprador/")
