@@ -2,7 +2,7 @@ package com.HiloNacional.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "usuario")
@@ -25,7 +25,8 @@ public class Usuario {
     @Column(name = "telefono", length = 20)
     private String telefono;
 
-    @Column(name = "fecha_registro")
+    @CreationTimestamp                                       
+    @Column(name = "fecha_registro", updatable = false) 
     private LocalDateTime fechaRegistro;
 
     public Long getIdUsuario() { return idUsuario; }
@@ -45,14 +46,12 @@ public class Usuario {
 
     public LocalDateTime getFechaRegistro() { return fechaRegistro; }
     public void setFechaRegistro(LocalDateTime fechaRegistro) { this.fechaRegistro = fechaRegistro; }
-    
-    
-	@Override
-	public String toString() {
-		return "Usuario [idUsuario=" + idUsuario + ", email=" + email + ", clave=" + clave + ", nombre=" + nombre
-				+ ", telefono=" + telefono + ", fechaRegistro=" + fechaRegistro + "]";
-	}
-    
-    
+
+    @Override
+    public String toString() {
+        return "Usuario [idUsuario=" + idUsuario + ", email=" + email + ", clave=" + clave + ", nombre=" + nombre
+                + ", telefono=" + telefono + ", fechaRegistro=" + fechaRegistro + "]";
+    }
+
 }
 

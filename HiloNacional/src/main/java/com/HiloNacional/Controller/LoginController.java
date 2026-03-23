@@ -15,7 +15,7 @@ import jakarta.servlet.ServletException;
 import io.jsonwebtoken.Jwts;
 
 @RestController
-@RequestMapping(path="/store/login") // Endpoint base para login
+@RequestMapping(path="/HiloNacional/login") // Endpoint base para login
 public class LoginController {
 
     private final UsuarioService usuarioService;

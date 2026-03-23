@@ -1,6 +1,5 @@
 package com.HiloNacional.Service;
 
-
 import com.HiloNacional.model.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,84 +14,81 @@ import com.HiloNacional.Repository.UsuarioRepository;
 @Service
 public class UsuarioService {
 
-	private final UsuarioRepository usuariosRepository;
-	
-	@Autowired
-	private PasswordEncoder encoder;
-	
-	@Autowired
-	public UsuarioService(UsuarioRepository usuariosRepository) {
-		this.usuariosRepository = usuariosRepository;
-	}// constructor
-	
-	public List<Usuario> getUsuarios() {
-		return usuariosRepository.findAll();
-	}// getUsuarios
-	
+    private final UsuarioRepository usuariosRepository;
 
-	public Usuario getUsuario(Long id) {
-		
-		return usuariosRepository
-				.findById(id)
-				.orElseThrow( () -> new IllegalArgumentException("El usuario con el id [" + id + "] no existe") );
-	}// getUsuario
-	
-	
-	public Usuario deleteUsuario(Long id) {
-		Usuario tmpUsuario = null;
-		
-		if(usuariosRepository.existsById(id)) {
-			tmpUsuario = usuariosRepository.findById(id).get();
-			usuariosRepository.deleteById(id);
-		}// if
-		
-		return tmpUsuario;
-		
-	}// deleteUsuario
-	
-	public Usuario addUsuario(Usuario usuario) {
-		Optional<Usuario> usr = usuariosRepository.findByEmail( usuario.getEmail() );
-		
-		if(usr.isEmpty()) {
-			usuario.setClave(encoder.encode( usuario.getClave() ) );
-			usuariosRepository.save(usuario);
-		} else {
-			usuario = null;
-		}// else
-		
-		return usuario;
-		
-	}// addUsuario
-	
-	public Usuario updateUsuario(Long id, ClaveDto claveDto) {
-		Usuario tmpUsuario = usuariosRepository.findById(id).get();
-		
-		//tmpUsuario.getClave().equals( claveDto.getClave()
-		if( encoder.matches(claveDto.getClave(), tmpUsuario.getClave()) ) {
-			tmpUsuario.setClave( encoder.encode( claveDto.getNclave() ) );
-			return usuariosRepository.save(tmpUsuario);
-		} else {
-			tmpUsuario = null;
-		}// else
-		
-		return tmpUsuario;
-	}// updateUsuario
+    @Autowired
+    private PasswordEncoder encoder;
 
-	public boolean validarUsuario(Usuario usuario) {
-		Optional<Usuario> usr = usuariosRepository.findByEmail( usuario.getEmail() );
-		Usuario tmpUsuario = null;
-		
-		if(usr.isPresent()) {
-			tmpUsuario = usr.get();
-			
-			if( encoder.matches(usuario.getClave(), tmpUsuario.getClave() )) {
-				return true;
-				
-			}//if
-			
-		}//if
-		
-		return false;
-	}//validarUsuario
-	
-}	// class UsuarioService
+    @Autowired
+    public UsuarioService(UsuarioRepository usuariosRepository) {
+        this.usuariosRepository = usuariosRepository;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuariosRepository.findAll();
+    }
+
+    public Usuario getUsuario(Long id) {
+        return usuariosRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("El usuario con el id [" + id + "] no existe"));
+    }
+
+    // ✅ Nuevo método — buscar por email (extraído del token)
+    public Usuario getUsuarioByEmail(String email) {
+        return usuariosRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("El usuario con el email [" + email + "] no existe"));
+    }
+
+    public Usuario deleteUsuario(Long id) {
+        Usuario tmpUsuario = null;
+
+        if (usuariosRepository.existsById(id)) {
+            tmpUsuario = usuariosRepository.findById(id).get();
+            usuariosRepository.deleteById(id);
+        }
+
+        return tmpUsuario;
+    }
+
+    public Usuario addUsuario(Usuario usuario) {
+        Optional<Usuario> usr = usuariosRepository.findByEmail(usuario.getEmail());
+
+        if (usr.isEmpty()) {
+            usuario.setClave(encoder.encode(usuario.getClave()));
+            return usuariosRepository.save(usuario);
+        } else {
+            usuario = null;
+        }
+
+        return usuario;
+    }
+
+    public Usuario updateUsuario(Long id, ClaveDto claveDto) {
+        Usuario tmpUsuario = usuariosRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("El usuario con el id [" + id + "] no existe"));
+
+        if (encoder.matches(claveDto.getClave(), tmpUsuario.getClave())) {
+            tmpUsuario.setClave(encoder.encode(claveDto.getNclave()));
+            return usuariosRepository.save(tmpUsuario);
+        } else {
+            return null;
+        }
+    }
+
+    public boolean validarUsuario(Usuario usuario) {
+        Optional<Usuario> usr = usuariosRepository.findByEmail(usuario.getEmail());
+
+        if (usr.isPresent()) {
+            Usuario tmpUsuario = usr.get();
+            if (encoder.matches(usuario.getClave(), tmpUsuario.getClave())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+}

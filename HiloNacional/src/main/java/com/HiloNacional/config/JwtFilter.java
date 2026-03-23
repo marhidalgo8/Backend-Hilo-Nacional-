@@ -27,47 +27,44 @@ public class JwtFilter extends GenericFilterBean {
     public static SecretKey getSigninKey() {
         byte[] keyBytes = Base64.getDecoder().decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
-    }// getSigninKey
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-    	HttpServletRequest httpServletRequest = (HttpServletRequest) request; // convertimos request a HttpServletRequest
-		String authHeader = httpServletRequest.getHeader("Authorization"); // obtenemos el header del token
-		String method = httpServletRequest.getMethod(); // obtenemos el método usado (ej. GET, POST)
-		String URI = httpServletRequest.getRequestURI(); // obtenemos la ruta de los endpoints (ej. /api/products/)
-		
-		
-		if( // Filtra las solicitudes y los endpoints
-		( method.equals("POST") ) && ( ! URI.contains("/store/usuarios/") )
-		|| ( method.equals("GET") ) && ( ! URI.contains("/store/products/") )
-		|| ( method.equals("PUT") )
-		|| ( method.equals("DELETE") )
-		) {
-			
-			if( (authHeader == null) || !( authHeader.startsWith("Bearer ")) ) { // verifica: 1.Que el header no sea nulo, 2. Que el header inicie con "Bearer "
-				throw new ServletException("1. Invalid Token");
-			}// if
-			
-			String token = authHeader.substring(7); // Extraemos el token
-			
-			try { // intenta crear el Token
-				Claims claims = Jwts.parser()
-						.verifyWith(getSigninKey())
-						.build()
-						.parseSignedClaims(token)
-						.getPayload();
-				System.out.println(claims.getSubject());
-			} catch ( SignatureException | MalformedJwtException | ExpiredJwtException e ) { // atrapa una de las siguientes excepciones
-				throw new ServletException("2. Invalid Token");
-			}// catch
-			
-		}// métodos
-		
 
-		chain.doFilter(request, response); // permite pasar la solicitud. Devuelve una respuesta (try/catch)
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        String authHeader = httpServletRequest.getHeader("Authorization");
+        String method = httpServletRequest.getMethod();
+        String URI = httpServletRequest.getRequestURI();
 
-    }// doFilter
+        // ✅ Rutas públicas — no necesitan token
+        boolean esGetProductos = method.equals("GET") && URI.contains("/HiloNacional/productos/");
+        boolean esPostUsuarios = method.equals("POST") && URI.contains("/HiloNacional/usuarios/");
 
-}// class JwtFilter
+        if (!esGetProductos && !esPostUsuarios) {
 
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                throw new ServletException("1. Invalid Token");
+            }
+
+            String token = authHeader.substring(7);
+
+            try {
+                Claims claims = Jwts.parser()
+                        .verifyWith(getSigninKey())
+                        .build()
+                        .parseSignedClaims(token)
+                        .getPayload();
+                System.out.println(claims.getSubject());
+            } catch (SignatureException | MalformedJwtException | ExpiredJwtException e) {
+                throw new ServletException("2. Invalid Token");
+            }
+
+        }
+
+        chain.doFilter(request, response);
+
+    }
+
+}
