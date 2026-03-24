@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/HiloNacional/vendedor/")
+@CrossOrigin(origins="http://127.0.0.1:5500", methods= {RequestMethod.GET})
 public class VendedorController {
 
     private final VendedorService vendedorService;
