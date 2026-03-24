@@ -41,8 +41,9 @@ public class JwtFilter extends GenericFilterBean {
         // ✅ Rutas públicas — no necesitan token
         boolean esGetProductos = method.equals("GET") && URI.contains("/HiloNacional/productos/");
         boolean esPostUsuarios = method.equals("POST") && URI.contains("/HiloNacional/usuarios/");
+        boolean esGet = method.equals("GET"); // Allow all GET requests for frontend
 
-        if (!esGetProductos && !esPostUsuarios) {
+        if (!esGetProductos && !esPostUsuarios && !esGet) {
 
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                 throw new ServletException("1. Invalid Token");

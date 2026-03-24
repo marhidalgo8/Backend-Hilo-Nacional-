@@ -6,3 +6,5 @@ src/main/resources/application.properties
 HiloNacional/build/
 HiloNacional/bin/
 *.jar
+/.metadata/
+/build/
